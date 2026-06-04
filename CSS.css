@@ -40,9 +40,12 @@
 .prop-card h3, .prop-card p, .prop-card .prop-specs, .prop-card .prop-price, .prop-card a {
     margin: 4px 0;
     max-width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+}
+.prop-card .prop-name {
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+    font-size: 1.15rem;
 }
 .prop-card .prop-address, .prop-card .prop-specs {
     font-size: 0.95rem;
@@ -59,13 +62,13 @@
     font-size: 0.95rem;
     padding: 6px 14px;
     border-radius: 5px;
-    background: #2c3e50;
+    background: #F47C00;
     color: #fff;
     text-decoration: none;
     transition: 0.2s;
 }
 .prop-card .om-btn:hover {
-    background: #1a232b;
+    background: #d96f00;
 }
 
 @import url('https://fonts.googleapis.com/css?family=Noto+Serif:700,400&display=swap');
@@ -163,7 +166,7 @@ h1, h2, h3, h4, h5, h6 {
 .grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 30px;
+    gap: 50px;
     justify-content: center;
 }
 
@@ -171,38 +174,40 @@ h1, h2, h3, h4, h5, h6 {
 .commercial-card {
     background-color: white;
     border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    overflow: visible;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.1);
     position: relative;
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
+    align-items: stretch;
     min-width: 0;
     width: 90vw;
     max-width: 1100px;
-    margin: 20px auto;
+    margin: 30px auto;
+    padding-top: 90px;
 }
 
 .image-container img {
     width: 180px;
     height: 180px;
     object-fit: cover;
-    border-radius: 10px 0 0 10px;
+    border-radius: 50%;
     display: block;
+    flex-shrink: 0;
+    margin: 0 auto;
+    position: absolute;
+    top: -90px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
-/* Team member image: no rounded edge, add frame */
+/* Team member image: on top */
 .commercial-card .image-container img {
-    border-radius: 0;
+    border-radius: 50%;
     background: #fff;
     box-sizing: border-box;
-    padding: 10px;
-
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    min-width: 180px;
-    min-height: 220px;
+    padding: 0;
 }
 
 
@@ -211,15 +216,67 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
     flex-direction: column;
     flex: 1;
-    justify-content: center;
+    justify-content: flex-start;
     min-width: 0;
 }
 
+.card-body.collapsed .description {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    position: relative;
+    line-height: 1.5;
+    max-height: calc(1.5em * 3);
+}
+
+.card-body.collapsed .description::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 0.8em;
+    background: linear-gradient(transparent, rgba(255,255,255,0.95));
+}
+
+.card-body.expanded .description {
+    display: block;
+    max-height: none;
+    overflow: visible;
+}
+
+.card-body.expanded .description::after {
+    content: none;
+}
+
+.see-more-btn {
+    background: #F47C00;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin: 16px auto 0;
+    display: block;
+    transition: background 0.3s ease;
+}
+
+.see-more-btn:hover {
+    background: #d96f00;
+}
+
 .prop-address, .description {
-    font-size: 1rem;
+    font-size: 0.95rem;
     margin: 10px 0;
     color: #333;
     text-align: left;
+    line-height: 1.5;
 }
 
 /* Description always visible, right of image */
@@ -250,14 +307,14 @@ h1, h2, h3, h4, h5, h6 {
 
 .prop-price {
     font-weight: bold;
-    color: #2ecc71;
+    color: #002868 !important;
     font-size: 1.1rem;
     margin-bottom: 10px;
 }
 
 .om-btn {
     display: block;
-    background: #2c3e50;
+    background: #F47C00;
     color: white;
     text-align: center;
     padding: 12px;
