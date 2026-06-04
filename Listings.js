@@ -77,5 +77,64 @@ async function loadListings(){
     }
 }
 
+// Initialize team member cards with see more functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const teamCards = document.querySelectorAll('.commercial-card');
+            
+            teamCards.forEach(card => {
+                const cardBody = card.querySelector('.card-body');
+                const description = card.querySelector('.description');
+                
+                if (description) {
+                    cardBody.classList.add('collapsed');
+                    
+                    const seeMoreBtn = document.createElement('button');
+                    seeMoreBtn.className = 'see-more-btn';
+                    seeMoreBtn.textContent = 'See More';
+                    seeMoreBtn.style.display = 'none';
+                    
+                    description.after(seeMoreBtn);
+
+                    const shouldShowButton = () => {
+                        const clone = description.cloneNode(true);
+                        clone.style.position = 'absolute';
+                        clone.style.visibility = 'hidden';
+                        clone.style.pointerEvents = 'none';
+                        clone.style.display = 'block';
+                        clone.style.webkitLineClamp = 'unset';
+                        clone.style.webkitBoxOrient = 'unset';
+                        clone.style.overflow = 'visible';
+                        clone.style.maxHeight = 'none';
+                        clone.style.width = `${description.clientWidth}px`;
+                        card.appendChild(clone);
+                        const fullHeight = clone.scrollHeight;
+                        clone.remove();
+
+                        const collapsedHeight = description.clientHeight;
+                        if (fullHeight > collapsedHeight + 1) {
+                            seeMoreBtn.style.display = 'block';
+                        } else {
+                            seeMoreBtn.style.display = 'none';
+                        }
+                    };
+
+                    shouldShowButton();
+
+                    seeMoreBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        if (cardBody.classList.contains('collapsed')) {
+                            cardBody.classList.remove('collapsed');
+                            cardBody.classList.add('expanded');
+                            seeMoreBtn.textContent = 'See Less';
+                        } else {
+                            cardBody.classList.remove('expanded');
+                            cardBody.classList.add('collapsed');
+                            seeMoreBtn.textContent = 'See More';
+                        }
+                    });
+                }
+            });
+        });
+
 // Start the function
 loadListings();
