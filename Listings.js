@@ -13,10 +13,12 @@ async function loadListings(){
 
         //identifiy the "buckets" in your HTML
         const activeContainer = document.getElementById('active-listings');
+        const underContractContainer = document.getElementById('pending-listings');
         const soldContainer = document.getElementById('sold-listings');
 
         //Clear existing content
         activeContainer.innerHTML = "";
+        underContractContainer.innerHTML = "";
         soldContainer.innerHTML = "";
 
         //Loop through data (starting at index 1 to skip headers)
@@ -64,9 +66,11 @@ async function loadListings(){
             </div>`;
 
             //Sorting logic
-            if (status === 'for sale' || status === 'offer made') {
+            if (status === 'for sale' ) {
                 activeContainer.innerHTML += cardHtml;
-            } else if (status === 'sold') {
+            } else if (status === 'under contract') {
+                underContractContainer.innerHTML += cardHtml;
+            }else if (status === 'sold') {
                 soldContainer.innerHTML += cardHtml;
             }
             // Hidden statues is ignored, so it won't show up
