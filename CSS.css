@@ -107,7 +107,7 @@ h1, h2, h3, h4, h5, h6 {
     color: #002868 !important;
     text-transform: uppercase;
     letter-spacing: 1px;
-    text-align: center;
+    text-align: left;
 }
 
 /* Only property cards get the orange border */
